@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ascua</title>
+
+  <!-- Meta for apps/search; expand later -->
+  <meta name="description" content="Music, albums, drawings, shop, and more." />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Place CSS links later -->
+   <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <!-- Splash Screen -->
+<div id="splash-screen">
+  <button id="enter-btn">Enter</button>
+</div>
+  <!-- App container ensures the audio bar sits outside main for persistence -->
+  <div id="app" data-app-root>
+    <!-- Header intentionally has no navigation per your spec -->
+    <header id="site-header">
+        <button data-nav-to="front" id="home-button">Home</button>
+    </header>
+
+    <main id="site-main" role="main" tabindex="-1">
+      <!-- FRONT PAGE (landing) -->
+      <section id="front" data-route="front" aria-label="Front Page" data-page>
+        <div class="front-content" data-front>
+        <div class="front-actions" role="group" aria-label="Primary sections">
+  <button class="front-btn myButton" data-nav-to="albums" aria-controls="albums" aria-label="Go to Albums">Albums</button>
+  <button class="front-btn myButton" data-nav-to="drawings" aria-controls="drawings" aria-label="Go to Drawings">Drawings</button>
+  <button class="front-btn myButton" data-nav-to="shop" aria-controls="shop" aria-label="Go to Shop">Shop</button>
+  <button class="front-btn myButton" data-nav-to="about" aria-controls="about" aria-label="Go to About">About</button>
+  <button class="front-btn myButton" data-nav-to="contact" aria-controls="contact" aria-label="Go to Contact">Contact</button>
+</div>
+
+          <!-- Fallback links if JS is disabled -->
+          <noscript>
+            <p>
+              <a href="#albums">Albums</a> ·
+              <a href="#drawings">Drawings</a> ·
+              <a href="#shop">Shop</a> ·
+              <a href="#about">About</a> ·
+              <a href="#contact">Contact</a>
+            </p>
+          </noscript>
+        </div>
+      </section>
+
+     <!-- ALBUMS -->    
+      <section id="albums" data-page hidden>
+  <h2>Albums</h2>
+  <div class="albums-container">
+    <!-- Album 1 -->
+    <div class="album-card">
+      <h3>Album One</h3>
+      <p>This is a brief description of Album One.</p>
+      <a href="#" class="album-link">Learn More</a>
+    </div>
+
+    <!-- Album 2 -->
+    <div class="album-card">
+      <h3>Album Two</h3>
+      <p>This is a brief description of Album Two.</p>
+      <a href="#" class="album-link">Learn More</a>
+    </div>
+
+    <!-- Album 3 -->
+    <div class="album-card">
+      <h3>Album Three</h3>
+      <p>This is a brief description of Album Three.</p>
+      <a href="#" class="album-link">Learn More</a>
+    </div>
+  </div>
+</section>
+
+      <!-- DRAWINGS -->
+<section id="drawings" data-page hidden>
+  <h2>Drawings</h2>
+  <div class="drawing-carousel">
+    <button class="arrow-btn" id="prev-drawing" aria-label="Previous Drawing">⟨</button>
+    
+    <div class="drawing-display">
+      <img src="https://via.placeholder.com/400x300?text=Drawing+1" alt="Drawing 1" class="drawing-img">
+    </div>
+    
+    <button class="arrow-btn" id="next-drawing" aria-label="Next Drawing">⟩</button>
+  </div>
+</section>
+
+      <!-- SHOP -->
+      <section id="shop" data-page hidden>
+        <h2>Shop goes here</h2>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" data-page hidden>
+        <h2>About goes here</h2>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" data-page hidden>
+        <h2>Contact goes here</h2>
+      </section>
+    </main>
+
+<!-- Persistent Music Bar (always present; do NOT replace on SPA route changes) -->
+<footer id="music-bar" role="contentinfo" aria-label="Music bar" data-sticky-player>
+  <div class="player">
+    <!-- Audio element (managed by JS) -->
+    <audio id="global-audio" preload="metadata">
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Player controls -->
+    <div class="player-ui" aria-live="polite">
+      <button type="button" id="prev-btn" aria-label="Previous track">⏮</button>
+      <button type="button" id="play-btn" aria-label="Play">▶️</button>
+      <button type="button" id="pause-btn" aria-label="Pause">⏸</button>
+      <button type="button" id="next-btn" aria-label="Next track">⏭</button>
+      <div class="track-info" id="track-info"></div>
+    </div>
+  </div>
+</footer>
+
+  <!-- Place scripts at the end; keep audio element outside replaced content to persist -->
+  <script src="script.js" defer></script>
+
+</body>
+</html>
+
