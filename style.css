@@ -130,37 +130,76 @@ button:active, .front-btn:active, #home-button:active, .arrow-btn:active {
 .front-actions button[data-nav-to="contact"] {
   right: 1rem;
 }
-
-/* Music bar always at bottom */
+/* Music Bar Container */
 #music-bar {
   position: fixed;
-  bottom: 0;
-  left: 50%;                /* center horizontally */
-  transform: translateX(-50%); /* adjust for exact center */
-  width: 20%;               /* 1/5th of screen width */
-  background: #111;
-  color: #fff;
-  padding: 0.5rem;
-  border-radius: 12px 12px 0 0; /* optional: round the top corners */
-  box-shadow: 0 -3px 10px rgba(0,0,0,0.5); /* optional: shadow */
+  bottom: 30px; /* lifted from bottom for spacing */
+  left: 50%; 
+  transform: translateX(-50%);
+  width: 20%; 
+  background: radial-gradient(ellipse at center, #FFFFFF 0%, #FFF867 100%);
+  color: #000; /* darker text for contrast */
+  padding: 1rem; /* breathing space */
+  border-radius: 20px; /* fully rounded corners */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* subtle shadow */
+  display: flex; 
+  flex-direction: column; /* stack track info and buttons */
+  align-items: center; 
+  gap: 0.5rem; /* space between text and buttons */
 }
 
+/* Audio element inside the bar */
 #music-bar audio {
-  width: 100%;              /* fill the music bar */
+  display: none; /* hide the default audio player */
 }
+
+/* Player Buttons Container */
+.player-ui {
+  display: flex;
+  justify-content: center; /* center buttons horizontally */
+  gap: 1rem; /* space between buttons */
+}
+
+/* Player Buttons */
 .player-ui button {
   background: transparent;
   border: none;
-  color: #fff;
-  font-size: 1.2rem;
+  color: #000; /* black buttons for contrast */
+  font-size: 1.5rem; 
   cursor: pointer;
+  transition: color 0.2s ease; /* smooth hover transition */
+}
+.player-ui button:hover {
+  color: #FFFFFF;  /* change icon color to white on hover */
 }
 
+/* Track info text container */
 #track-info {
-  margin-top: 0.3rem;
+  width: 100%;              /* fill the music bar */
+  overflow: hidden;          /* hide overflowing text */
+  white-space: nowrap;       /* keep text in a single line */
+  box-sizing: border-box;
+  text-align: left;
   font-size: 0.9rem;
-  text-align: center;
-  color: #fff;
+  position: relative;
+  color: #FF4500; /* track name color */
+}
+
+/* Inner span that moves */
+#track-info span {
+  display: inline-block;
+  padding-left: 0;        /* start off to the left */
+  animation: scrollText 30s linear infinite;
+}
+
+/* Keyframes for scrolling text */
+@keyframes scrollText {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 /* ----- DRAWINGS CAROUSEL ----- */

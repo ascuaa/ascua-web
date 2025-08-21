@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navButtons = document.querySelectorAll("[data-nav-to]");
 
   function showPage(id) {
-    pages.forEach(page => page.hidden = true);
+    pages.forEach(page => (page.hidden = true));
     const target = document.getElementById(id);
     if (target) target.hidden = false;
   }
@@ -19,47 +19,43 @@ document.addEventListener("DOMContentLoaded", () => {
   showPage("front"); // start on front page
 
   // ----- DRAWINGS CAROUSEL -----
-  const drawings = [
-    "assets/drawings/1.png",
-    "assets/drawings/2.jpg"
-  ];
+let drawings = []; // start empty
+let currentIndex = 0;
 
-  let currentIndex = 0;
+const imgElement = document.querySelector(".drawing-img");
+const drawingPrevBtn = document.getElementById("prev-drawing");
+const drawingNextBtn = document.getElementById("next-drawing");
 
-  const imgElement = document.querySelector(".drawing-img");
-  const prevBtn = document.getElementById("prev-drawing");
-  const nextBtn = document.getElementById("next-drawing");
+// Fetch all drawings from the server
+fetch("/drawings")
+  .then(res => res.json())
+  .then(files => {
+    drawings = files;
+    if (drawings.length > 0) showDrawing(currentIndex);
+  })
+  .catch(err => console.error(err));
 
-  function showDrawing(index) {
-    imgElement.src = drawings[index];
-    imgElement.alt = `Drawing ${index + 1}`;
-  }
-showDrawing(currentIndex);
+function showDrawing(index) {
+  imgElement.src = drawings[index];
+  imgElement.alt = `Drawing ${index + 1}`;
+}
 
-  prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + drawings.length) % drawings.length;
-    showDrawing(currentIndex);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % drawings.length;
-    showDrawing(currentIndex);
-  });
+// Add event listeners to the buttons
+drawingPrevBtn.addEventListener("click", () => {
+  if (drawings.length === 0) return;
+  currentIndex = (currentIndex - 1 + drawings.length) % drawings.length;
+  showDrawing(currentIndex);
 });
 
-    // Music Bar //
-document.addEventListener("DOMContentLoaded", () => {
+drawingNextBtn.addEventListener("click", () => {
+  if (drawings.length === 0) return;
+  currentIndex = (currentIndex + 1) % drawings.length;
+  showDrawing(currentIndex);
+});
+
+  // ----- MUSIC BAR + SPLASH -----
   const splash = document.getElementById("splash-screen");
   const enterBtn = document.getElementById("enter-btn");
-  const audio = document.getElementById("global-audio");
-  
-  enterBtn.addEventListener("click", () => {
-    splash.style.display = "none"; // hide splash
-    audio.play().catch(err => console.log("Playback blocked:", err)); // start music
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
   const audio = document.getElementById("global-audio");
   const playBtn = document.getElementById("play-btn");
   const pauseBtn = document.getElementById("pause-btn");
@@ -68,17 +64,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const trackInfo = document.getElementById("track-info");
 
   const tracks = [
-    "assets/music/1.wav",
+    "assets/music/hola amiguito.wav",
     "assets/music/2.wav"
   ];
   let currentTrack = 0;
 
-  function loadTrack(index) {
-    audio.src = tracks[index];
-    audio.play().catch(err => console.log("Autoplay blocked:", err));
-    trackInfo.textContent = `Track ${index + 1} of ${tracks.length}`;
-  }
+function loadTrack(index) {
+  audio.src = tracks[index];
+  audio.play().catch(err => console.log("Autoplay blocked:", err));
 
+  // Extract file name without extension
+  const fullPath = tracks[index];                      // e.g., "assets/music/hello world.wav"
+  const fileName = fullPath.split("/").pop().split(".")[0]; // "hello world"
+
+  // Update the span inside #track-info for scrolling
+  trackInfo.innerHTML = `<span>♪ You're listening to "${fileName}"</span>`;
+  
+  // Restart scrolling animation
+  const trackSpan = trackInfo.querySelector("span");
+  trackSpan.style.animation = "none";            // stop current animation
+  void trackSpan.offsetWidth;                    // force reflow
+  trackSpan.style.animation = "scrollText 30s linear infinite"; // restart animation
+}
+  // Splash button -> hide splash + play music
+  enterBtn.addEventListener("click", () => {
+    splash.style.display = "none";
+    audio.play().catch(err => console.log("Playback blocked:", err));
+  });
+
+  // Controls
   playBtn.addEventListener("click", () => audio.play());
   pauseBtn.addEventListener("click", () => audio.pause());
 

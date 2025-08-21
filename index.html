@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <title>Ascua</title>
 
   <!-- Meta for apps/search; expand later -->
@@ -83,9 +84,9 @@
   <div class="drawing-carousel">
     <button class="arrow-btn" id="prev-drawing" aria-label="Previous Drawing">⟨</button>
     
-    <div class="drawing-display">
-      <img src="https://via.placeholder.com/400x300?text=Drawing+1" alt="Drawing 1" class="drawing-img">
-    </div>
+   <div class="drawing-display">
+  <img src="" alt="Drawing" class="drawing-img">
+</div>
     
     <button class="arrow-btn" id="next-drawing" aria-label="Next Drawing">⟩</button>
   </div>
@@ -114,11 +115,14 @@
     <audio id="global-audio" preload="metadata">
       Your browser does not support the audio element.
     </audio>
+    <div id="track-info">
+  <span>You're listening to "hello world"</span>
+</div>
 
     <!-- Player controls -->
     <div class="player-ui" aria-live="polite">
       <button type="button" id="prev-btn" aria-label="Previous track">⏮</button>
-      <button type="button" id="play-btn" aria-label="Play">▶️</button>
+      <button type="button" id="play-btn" aria-label="Play">►</button>
       <button type="button" id="pause-btn" aria-label="Pause">⏸</button>
       <button type="button" id="next-btn" aria-label="Next track">⏭</button>
       <div class="track-info" id="track-info"></div>
