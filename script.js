@@ -20,9 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ----- DRAWINGS CAROUSEL -----
   const drawings = [
-    "https://via.placeholder.com/400x300?text=Drawing+1",
-    "https://via.placeholder.com/400x300?text=Drawing+2",
-    "https://via.placeholder.com/400x300?text=Drawing+3"
+    "assets/drawings/1.png",
+    "assets/drawings/2.jpg"
   ];
 
   let currentIndex = 0;
@@ -35,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     imgElement.src = drawings[index];
     imgElement.alt = `Drawing ${index + 1}`;
   }
+showDrawing(currentIndex);
 
   prevBtn.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + drawings.length) % drawings.length;
